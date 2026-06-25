@@ -26,7 +26,7 @@ namespace LocationHeatMap.ViewModels
         // ── Bindable Properties ────────────────────────────────────────────
 
         private bool _isTracking;
-        Whether location tracking is currently active.</summary>
+       
         public bool IsTracking
         {
             get => _isTracking;
@@ -34,7 +34,7 @@ namespace LocationHeatMap.ViewModels
         }
 
         private string _statusMessage = "Tap 'Start Tracking' to begin.";
-        Status message displayed in the UI footer.</summary>
+        
         public string StatusMessage
         {
             get => _statusMessage;
@@ -42,20 +42,19 @@ namespace LocationHeatMap.ViewModels
         }
 
         private int _locationCount;
-        Total number of saved location points.</summary>
+        /// <summary>Total number of saved location points.</summary>
         public int LocationCount
         {
             get => _locationCount;
             set { _locationCount = value; OnPropertyChanged(); }
         }
 
-        Dynamic button label based on tracking state.</summary>
         public string TrackingButtonText =>
             IsTracking ? "⏹ Stop Tracking" : "▶ Start Tracking";
 
         // ── Map & Heat Map Data ────────────────────────────────────────────
 
-        Observable collection of location pins for the map.</summary>
+        
         public ObservableCollection<LocationPoint> HeatMapPoints { get; } = new();
 
         private MapSpan _mapRegion = MapSpan.FromCenterAndRadius(
@@ -63,7 +62,6 @@ namespace LocationHeatMap.ViewModels
             Distance.FromKilometers(5)
         );
 
-        Current visible region of the map control.</summary>
         public MapSpan MapRegion
         {
             get => _mapRegion;
@@ -72,13 +70,10 @@ namespace LocationHeatMap.ViewModels
 
         // ── Commands ───────────────────────────────────────────────────────
 
-        Toggles location tracking on/off.</summary>
         public ICommand ToggleTrackingCommand { get; }
 
-        Clears all saved location data and refreshes the map.</summary>
         public ICommand ClearDataCommand { get; }
 
-        Refreshes heat map points from the database.</summary>
         public ICommand RefreshMapCommand { get; }
 
         // ── Constructor ────────────────────────────────────────────────────
