@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="LocationHeatMap.csproj">
+    <Deploy />
+  </Project>
+</Solution>

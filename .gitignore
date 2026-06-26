@@ -1,0 +1,19 @@
+# Build folders
+bin/
+obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Rider
+.idea/
+
+# MAUI generated files
+*.apk
+*.aab
+
+# OS files
+.DS_Store
+Thumbs.db
