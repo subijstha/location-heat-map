@@ -12,8 +12,7 @@
     xmlns:controls="clr-namespace:LocationHeatMap.Controls"
     x:Class="LocationHeatMap.MainPage"
     Title="MainView"
-    Shell.NavBarColor="#6A0DAD"
-    Shell.TitleColor="White">
+    >
 
     <!-- Bind to ViewModel -->
     <ContentPage.BindingContext>
@@ -87,20 +86,25 @@
         <!-- ═══════════════════════════════════════════════════════════════
              Row 2: Status Bar
         ════════════════════════════════════════════════════════════════ -->
-        <Frame
+        <!-- ✅ New -->
+        <Border
             Grid.Row="2"
             BackgroundColor="#1A1A2E"
             Padding="10,6"
-            HasShadow="False"
-            CornerRadius="0">
+            StrokeThickness="0">
+
+                <Border.StrokeShape>
+                     <RoundRectangle CornerRadius="0" />
+                </Border.StrokeShape>
 
             <Label
-                Text="{Binding StatusMessage}"
-                TextColor="White"
-                FontSize="12"
-                HorizontalOptions="Center" />
+            Text="{Binding StatusMessage}"
+            TextColor="White"
+            FontSize="12"
+            HorizontalOptions="Center" />
 
-        </Frame>
+        </Border>
+
 
     </Grid>
 </ContentPage>
