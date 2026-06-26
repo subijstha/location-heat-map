@@ -1,28 +1,69 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <!-- Target Android and iOS platforms -->
-    <TargetFrameworks>net8.0-android;net8.0-ios</TargetFrameworks>
+    <TargetFrameworks>net10.0-android</TargetFrameworks>
+    <!-- Add others only if you need them -->
+    <!-- net10.0-ios;net10.0-maccatalyst;net10.0-windows10.0.19041.0 -->
+    <OutputType>Exe</OutputType>
     <RootNamespace>LocationHeatMap</RootNamespace>
-    <ApplicationId>com.yourname.locationheatmap</ApplicationId>
-    <ApplicationVersion>1</ApplicationVersion>
-    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
-    <Nullable>enable</Nullable>
+    <UseMaui>true</UseMaui>
+    <SingleProject>true</SingleProject>
     <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+    <Nullable>enable</Nullable>
+</PropertyGroup>
 
-  <!-- NuGet Package References -->
+
+  <!-- MAUI Resources -->
   <ItemGroup>
-    <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
-    <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+    <MauiIcon Include="Resources\AppIcon\appicon.svg"
+              ForegroundFile="Resources\AppIcon\appiconfg.svg"
+              Color="#512BD4" />
+    <MauiSplashScreen Include="Resources\Splash\splash.svg"
+                      Color="#512BD4"
+                      BaseSize="128,128" />
+    <MauiFont Include="Resources\Fonts\*" />
+    <MauiAsset Include="Resources\Raw\**"
+               LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 
-    <!-- SQLite packages -->
+<!-- Android only -->
+<ItemGroup Condition="$(TargetFramework.StartsWith('net10.0-android'))">
+    <Compile Include="Platforms\Android\**\*.cs" />
+    <AndroidResource Include="Platforms\Android\Resources\**" />
+</ItemGroup>
+
+<!-- iOS only -->
+<ItemGroup Condition="$(TargetFramework.StartsWith('net10.0-ios'))">
+    <Compile Include="Platforms\iOS\**\*.cs" />
+</ItemGroup>
+
+<!-- Mac Catalyst only -->
+<ItemGroup Condition="$(TargetFramework.StartsWith('net10.0-maccatalyst'))">
+    <Compile Include="Platforms\MacCatalyst\**\*.cs" />
+</ItemGroup>
+
+<!-- Windows only -->
+<ItemGroup Condition="$(TargetFramework.StartsWith('net10.0-windows'))">
+    <Compile Include="Platforms\Windows\**\*.cs" />
+</ItemGroup>
+
+<!-- Exclude Windows XAML from non-windows builds -->
+<ItemGroup Condition="!$(TargetFramework.StartsWith('net10.0-windows'))">
+    <MauiXaml Remove="Platforms\Windows\**" />
+    <Compile Remove="Platforms\Windows\**" />
+    <Compile Remove="Platforms\iOS\**" />
+    <Compile Remove="Platforms\MacCatalyst\**" />
+</ItemGroup>
+
+  <!-- Packages -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Maui.Controls" Version="10.0.20" />
+    <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="10.0.20" />
+    <PackageReference Include="Microsoft.Maui.Controls.Maps" Version="10.0.20" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.0" />
+    <PackageReference Include="SourceGear.sqlite3" Version="3.50.4.5" />
     <PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
-    <PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.8" />
-
-    <!-- MAUI Maps -->
-    <PackageReference Include="Microsoft.Maui.Controls.Maps" Version="8.0.100" />
+    <PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.11" />
+    <PackageReference Include="SQLitePCLRaw.lib.e_sqlite3.android" Version="2.1.11" />
   </ItemGroup>
 
 </Project>
